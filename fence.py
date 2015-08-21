@@ -5,38 +5,31 @@ import sys
 def main(argv):
 
     # sirka plotu
-    fenceWidth = 2440;
+    fenceWidth = 2450;
     # odsazeni od kraje
-    fenceOffset = 42;
+    fenceOffsetLeft = 30;
+    fenceOffsetRight = 30;
     # celkove odsazeni (dva okraje)
-    fenceOffsets = fenceOffset * 2;
-    # sirka late
-    fenceBarWidth = 80;
-    # vychozi sirka mezery
-    fenceSpace = fenceBarWidth // 2;
+    fenceOffsets = fenceOffsetLeft + fenceOffsetRight;
     # sirka plotu bez celkoveho odsazeni
     fenceWidthReal = fenceWidth - fenceOffsets;
+    # sirka late
+    fenceBarWidth = 78;
+    # vychozi sirka mezery
+    fenceBarSpace = 30;
     # celkova sirka s mezerou
-    fenceBarTotalWidth = fenceBarWidth + fenceSpace
+    fenceBarTotalWidth = fenceBarWidth + fenceBarSpace;
+    fenceBarSpaceTemp = 1;
 
-    fenceBarDiv = 1
-    fenceWidthTemp = 0;
-    while fenceBarDiv != 0:
-        fenceSpace = fenceSpace + 1;
-        fenceBarCounter = fenceWidthReal // fenceBarTotalWidth;
-        fenceBarDiv = fenceWidthReal % fenceBarTotalWidth;
-        fenceBarTotalWidth = fenceBarWidth + fenceSpace;
-        fenceWidthTemp = ((fenceBarWidth+fenceSpace)*fenceBarCounter);
-        if fenceWidthTemp == fenceWidthReal:
+    while True:
+        fenceBarSpaceTemp = 0;
+        fenceBarSpace = fenceBarSpace + 1;
+        for i in range(1,26):
+            fenceBarSpaceTemp = (fenceBarWidth * i) + (fenceBarSpace * (i-1));
+            if( fenceBarSpaceTemp == fenceWidthReal ):
+                print "Sirce plotu %smm s okrajema %smm a %smm odpovida %s lati o sirce %smm s mezerou %smm." % (fenceWidth, fenceOffsetLeft, fenceOffsetRight, i, fenceBarWidth, fenceBarSpace);
+        if fenceBarSpace > fenceBarWidth:
             break;
-
-    print ""
-    print "Sirka plotu: %s mm" % (fenceWidth);
-    print "Sirka bez okraju: %s mm" % (fenceWidthReal);
-    print "Pocet lati o sirce %s mm: %s" % (fenceBarWidth, fenceBarCounter);
-    print "Velikost mezery: %s mm" % (fenceSpace)
-    print "%s = %s" % (fenceWidthReal, fenceWidthTemp)
-    print ""
 
 if __name__ == "__main__":
     main(sys.argv)
