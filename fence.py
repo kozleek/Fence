@@ -54,7 +54,7 @@ def main(argv):
             ),
             fill="silver"
         );
-        draw.text((5, imageHeightHalf-40),str(fenceOffsetLeft),(0,0,0),font=font);
+        draw.text((5, imageHeightHalf-40),str(fenceOffsetLeft),"black",font=font);
 
         # pravy offset plotu
         draw.rectangle(
@@ -64,7 +64,7 @@ def main(argv):
             ),
             fill="silver"
         );
-        draw.text((imageWidth-fenceOffsetRight+5, imageHeightHalf-40),str(fenceOffsetRight),(0,0,0),font=font);
+        draw.text((imageWidth-fenceOffsetRight+5, imageHeightHalf-40),str(fenceOffsetRight),"black",font=font);
 
         # vykresleni lati
         for i in range(0, pCounter):
@@ -74,21 +74,26 @@ def main(argv):
                     (barOffset, imageHeightHalf-100),
                     (barOffset + fenceBarWidth, imageHeightHalf+100)
                 ),
-                fill=(0,0,0),
+                fill= "black",
                 outline = "black"
             );
             # rozmer late
-            draw.text((barOffset+5, imageHeightHalf-120),str(fenceBarWidth),(0,0,0),font=font);
+            draw.text((barOffset+5, imageHeightHalf-120),str(fenceBarWidth),"black",font=font);
             # cislo late
-            draw.text((barOffset+20, imageHeightHalf-16),str(i+1),(255,255,255),font=font2);
+            draw.text((barOffset+20, imageHeightHalf-16),str(i+1),"white",font=font2);
             if( i != (pCounter-1) ):
                 # rozmer mezery
-                draw.text((barOffset+fenceBarWidth+5, imageHeightHalf-20),str(pFenceBarSpace),(0,0,0),font=font);
+                draw.text((barOffset+fenceBarWidth+5, imageHeightHalf-20),str(pFenceBarSpace),"black",font=font);
 
         # textovy vysledek
-        draw.text((10, 10),str(pTextResult),(0,0,0),font=font2);
+        draw.text((10, 10),str(pTextResult),"black",font=font2);
 
-        fileName = "output/fence-%s.png" % salt();
+        # pokud vystupni adresar neexistuje tak ho vytvor
+        outputPath = "output";
+        if not os.path.exists(outputPath):
+            os.makedirs(outputPath);
+
+        fileName = "%s/fence-%s.png" % (outputPath, salt());
         im.save(fileName);
 
     while True:
